@@ -1,9 +1,7 @@
-import './style.css'
-import {getMovies} from './movieAPI';
+import './style.css';
+import getMovies from './movieAPI';
 
-
-
-const displayMovie = (movie) =>  `<div class="card">
+const displayMovie = (movie) => `<div class="card">
                     <div>
                         <img class="card-img" src="${movie.image.medium}">
                     </div>
@@ -14,17 +12,13 @@ const displayMovie = (movie) =>  `<div class="card">
                     </div>
    </div>`;
 
-
 const listMovie = document.querySelector('.row');
-const moviesComponent = async() => {
+const moviesComponent = async () => {
   listMovie.innerHTML = '';
-  const list  = await getMovies();
+  const list = await getMovies();
   list.forEach((item) => {
     listMovie.innerHTML += displayMovie(item);
   });
-
 };
 
 moviesComponent();
-
-
