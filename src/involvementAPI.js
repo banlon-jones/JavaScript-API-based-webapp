@@ -8,13 +8,14 @@ export const newLike = async (item_id) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({item_id}),
+    body: JSON.stringify({ item_id }),
   });
 };
 
 export const getLikes = async () => {
   const response = await fetch(`${baseURL}apps/${appId}/likes`,
-    {headers: {
+    {
+      headers: {
         'Content-Type': 'application/json',
       },
     });

@@ -1,6 +1,7 @@
 import './style.css';
-import {getMovies} from './movieAPI';
-import {getLikes, newLike} from './involvementAPI';
+import { getMovies } from './movieAPI';
+import { getLikes, newLike } from './involvementAPI';
+
 const displayMovie = (movie, like = null) => `<div class="card">
                     <div>
                         <img class="card-img" src="${movie.image.medium}">
@@ -12,13 +13,9 @@ const displayMovie = (movie, like = null) => `<div class="card">
                     </div>
    </div>`;
 
-const likeCounter = async () => {
-  return await getLikes();
-};
-
 const listMovie = document.querySelector('.row');
 const moviesComponent = async () => {
-  const likes = await likeCounter();
+  const likes = await getLikes();
   listMovie.innerHTML = '';
   const list = await getMovies();
   list.forEach((item) => {
@@ -26,7 +23,7 @@ const moviesComponent = async () => {
     const tin = likes.find((like) => item.id === Number(like.item_id));
     if (tin !== undefined) {
       count = tin.likes;
-    }else {
+    } else {
       count = 0;
     }
     listMovie.innerHTML += displayMovie(item, count);
@@ -36,11 +33,10 @@ const moviesComponent = async () => {
   like.forEach((item) => {
     item.addEventListener('click', () => {
       const movieId = item.getAttribute('data-id');
-      //alert(movieId);
+      // alert(movieId);
       newLike(movieId);
     });
   });
 };
 
 moviesComponent();
-

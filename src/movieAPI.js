@@ -8,5 +8,4 @@ export const getMovies = async () => {
 export const getMovie = async (id) => {
   const response = await fetch(`${baseURL}/shows/${id}`);
   return response.json();
-}
-
+};
