@@ -1,8 +1,12 @@
 const baseURL = 'https://api.tvmaze.com';
 
-const getMovies = async () => {
+export const getMovies = async () => {
   const response = await fetch(`${baseURL}/shows`);
   return response.json();
 };
 
-export default getMovies;
+export const getMovie = async (id) => {
+  const response = await fetch(`${baseURL}/shows/${id}`);
+  return response.json();
+}
+
