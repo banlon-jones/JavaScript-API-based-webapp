@@ -33,7 +33,6 @@ const moviesComponent = async () => {
   like.forEach((item) => {
     item.addEventListener('click', () => {
       const movieId = item.getAttribute('data-id');
-      // alert(movieId);
       newLike(movieId);
     });
   });
