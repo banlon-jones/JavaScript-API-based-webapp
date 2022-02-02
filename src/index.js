@@ -1,6 +1,6 @@
 import './style.css';
-import {counter, getMovies} from './movieAPI';
-import {getLikes, newLike} from './involvementAPI';
+import { counter, getMovies } from './movieAPI';
+import { getLikes, newLike } from './involvementAPI';
 
 const displayMovie = (movie, like = null) => `<div class="card">
                     <div>
