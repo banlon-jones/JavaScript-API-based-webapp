@@ -1,5 +1,5 @@
 import './style.css';
-import { getMovies } from './movieAPI';
+import { counter, getMovies } from './movieAPI';
 import { getLikes, newLike } from './involvementAPI';
 
 const displayMovie = (movie, like = null) => `<div class="card">
@@ -39,3 +39,9 @@ const moviesComponent = async () => {
 };
 
 moviesComponent();
+const countTag = document.querySelector('.count');
+const displayCount = async () => {
+  countTag.innerHTML = await counter();
+};
+
+displayCount();
