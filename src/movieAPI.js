@@ -10,7 +10,8 @@ export const getMovie = async (id) => {
   return response.json();
 };
 
-export const counter = async () => {
-  const movies = await getMovies();
-  return movies.length;
+export const countMovies = (movies) => {
+  if (movies.length) {
+    document.querySelector('.movie-count').innerHTML = `${movies.length}`;
+  }
 };

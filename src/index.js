@@ -1,9 +1,7 @@
 import './style.css';
-import { counter, getMovie, getMovies } from './movieAPI';
-import {
-  countComments, getComments, getLikes, newComment, newLike,
-} from './involvementAPI';
-import modalSection from './comment';
+import { countMovies, getMovie, getMovies } from './movieAPI';
+import { getLikes, newLike } from './involvementAPI';
+import { getComments, modal, newComment } from './comment';
 
 const displayMovie = (movie, like = null) => `<div class="card">
                     <div>
@@ -16,35 +14,24 @@ const displayMovie = (movie, like = null) => `<div class="card">
                     </div>
    </div>`;
 
-const displayComments = (comment) => `<li><span> ${comment.creation_date} </span> <span> ${comment.username} </span>  <span> ${comment.comment} </span> </li>`;
-
-const commentSec = async (movieId) => {
-  const comments = await getComments(movieId);
-  if (comments.length !== undefined) {
-    let comm = '';
-    comments.forEach((item) => {
-      comm += displayComments(item);
-    });
-    return comm;
-  }
-  return 'no comments';
+const currentDate = () => {
+  const date = new Date();
+  return date.toISOString().split('T')[0];
 };
 
-const modal = document.querySelector('.modal');
+const modalHolder = document.querySelector('.modal');
 const displayModal = async (movieId) => {
-  const count = await countComments(movieId);
   const movie = await getMovie(movieId);
-  modal.innerHTML = modalSection(movie, count);
+  modalHolder.innerHTML = modal(movie);
   const popContainer = document.querySelector('.popup-container');
   popContainer.style.display = 'block';
   popContainer.style.visibility = 'visible';
   const close = document.querySelector('.close');
-  const commentSection = document.querySelector('.comments');
-  commentSection.innerHTML = await commentSec(movieId);
   close.addEventListener('click', () => {
     popContainer.style.display = 'none';
     popContainer.style.visibility = 'hidden';
   });
+  getComments(movieId);
   const commentForm = document.getElementById('comment-form');
   commentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -55,7 +42,11 @@ const displayModal = async (movieId) => {
       comment: comment.value,
     };
     newComment(comme);
-    commentSection.innerHTML = await commentSec(movieId);
+    if (document.querySelector('.comments').innerHTML === '<p>No comments found</p>') {
+      document.querySelector('.comments').innerHTML = '';
+    }
+    document.querySelector('.comments').innerHTML += `<li><span>${currentDate()}</span> | <span>${comme.username}:</span> ${comme.comment}</li>`;
+    commentForm.reset();
   });
 };
 
@@ -64,6 +55,7 @@ const moviesComponent = async () => {
   const likes = await getLikes();
   listMovie.innerHTML = '';
   const list = await getMovies();
+  countMovies(list);
   list.forEach((item) => {
     let count = 0;
     const tin = likes.find((like) => item.id === Number(like.item_id));
@@ -97,9 +89,3 @@ const moviesComponent = async () => {
 };
 
 moviesComponent();
-const countTag = document.querySelector('.count');
-const displayCount = async () => {
-  countTag.innerHTML = await counter();
-};
-
-displayCount();

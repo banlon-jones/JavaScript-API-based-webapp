@@ -1,16 +1,15 @@
 /** * @jest-environment jsdom */
-import { countComments } from './involvementAPI';
 
-global.fetch = jest.fn(() => Promise.resolve(
-  {
-    json: () => Promise.resolve(new Array(3)),
-  },
-));
+import { countComments } from './comment';
 
-describe('Testing comment count', () => {
-  document.body.innerHTML = '<div></div>';
-  it('Comments count should be 7', async () => {
-    const count = await countComments();
-    expect(count).toBe(3);
-  });
+test('should display comments( 14 )', () => {
+  document.body.innerHTML = '<h2 id="count"></h2>';
+  countComments([1, 2, 3, 4, 5, 6, 6, 7, 8, 89, 9, 0, 7, 0]);
+  expect(document.querySelector('#count').innerHTML).toBe('Comments ( 14 )');
+});
+
+test('should display nothing if there are no comments', () => {
+  document.body.innerHTML = '<h2 id="count"></h2>';
+  countComments([]);
+  expect(document.querySelector('#count').innerHTML).toBe('');
 });
