@@ -1,4 +1,4 @@
-export default modalSection = (movie, count) => `<div class="popup-container">
+const modalSection = (movie, count) => `<div class="popup-container">
                 <div class="popup">
                     <button class="btn close">X</button>
                     <div class="details">
@@ -34,3 +34,5 @@ export default modalSection = (movie, count) => `<div class="popup-container">
                     </div>
                 </div>
             </div>`;
+
+export default modalSection;
