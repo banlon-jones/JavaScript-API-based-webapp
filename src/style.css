@@ -117,7 +117,7 @@ nav ul {
   height: 100%;
   overflow: auto;
   background-color: rgba(8, 9, 14, 0.5);
-  padding: 5%;
+  padding: 2% 5%;
 }
 
 .popup {
@@ -126,6 +126,7 @@ nav ul {
   padding: 2rem;
   width: fit-content;
   margin: 2% 10%;
+  overflow: auto;
 }
 
 .details {

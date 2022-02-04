@@ -1,16 +1,14 @@
 /** * @jest-environment jsdom */
-import { counter } from './movieAPI';
+import { countMovies } from './movieAPI';
 
-global.fetch = jest.fn(() => Promise.resolve(
-  {
-    json: () => Promise.resolve(new Array(240)),
-  },
-));
+test('should display nothing if there are no movies', () => {
+  document.body.innerHTML = '<h2 class="movie-count"></h2>';
+  countMovies([1, 2, 3, 4, 5, 6, 6, 7, 8, 89, 9, 0, 7, 0]);
+  expect(document.querySelector('.movie-count').innerHTML).toBe('14');
+});
 
-describe('Testing items count', () => {
-  document.body.innerHTML = '<div></div>';
-  it('item count should be 240', async () => {
-    const count = await counter();
-    expect(count).toBe(240);
-  });
+test('should display nothing if there are no movie', () => {
+  document.body.innerHTML = '<h2 class="movie-count"></h2>';
+  countMovies([]);
+  expect(document.querySelector('.movie-count').innerHTML).toBe('');
 });
