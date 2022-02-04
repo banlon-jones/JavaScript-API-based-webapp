@@ -22,11 +22,10 @@ export const getLikes = async () => {
 };
 
 export const getComments = async (movieID) => {
-  console.log(`${baseURL}apps/${appId}/comments?item_id=${movieID}`);
-  const response = await fetch(`${baseURL}apps/${appId}/comments?item_id=${movieID}`,{
+  const response = await fetch(`${baseURL}apps/${appId}/comments?item_id=${movieID}`, {
     headers: {
       'Content-Type': 'application/json',
-    }
+    },
   });
   return response.json();
 };
@@ -37,7 +36,7 @@ export const newComment = async (comment) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(comment)
+    body: JSON.stringify(comment),
   });
 };
 
@@ -45,7 +44,6 @@ export const countComments = async (movieID) => {
   const comments = await getComments(movieID);
   if (comments.length !== undefined) {
     return comments.length;
-  } else {
-    return 0;
   }
+  return 0;
 };

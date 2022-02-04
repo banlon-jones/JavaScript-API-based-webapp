@@ -1,5 +1,5 @@
 /** * @jest-environment jsdom */
-import {countComments} from './involvementAPI';
+import { countComments } from './involvementAPI';
 
 global.fetch = jest.fn(() => Promise.resolve(
   {

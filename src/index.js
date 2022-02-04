@@ -1,8 +1,9 @@
 import './style.css';
-import {counter, getMovie, getMovies} from './movieAPI';
-import {countComments, getComments, getLikes, newComment, newLike} from './involvementAPI';
-import {modalSection} from './comment';
-
+import { counter, getMovie, getMovies } from './movieAPI';
+import {
+  countComments, getComments, getLikes, newComment, newLike,
+} from './involvementAPI';
+import modalSection from './comment';
 
 const displayMovie = (movie, like = null) => `<div class="card">
                     <div>
@@ -15,22 +16,18 @@ const displayMovie = (movie, like = null) => `<div class="card">
                     </div>
    </div>`;
 
-const displayComments = (comment) => {
-  return `<li><span> ${comment.creation_date} </span> <span> ${comment.username} </span>  <span> ${comment.comment} </span> </li>`;
-};
-
+const displayComments = (comment) => `<li><span> ${comment.creation_date} </span> <span> ${comment.username} </span>  <span> ${comment.comment} </span> </li>`;
 
 const commentSec = async (movieId) => {
   const comments = await getComments(movieId);
-  if (comments.length !== undefined){
+  if (comments.length !== undefined) {
     let comm = '';
     comments.forEach((item) => {
       comm += displayComments(item);
     });
     return comm;
-  }else {
-    return 'no comments'
   }
+  return 'no comments';
 };
 
 const modal = document.querySelector('.modal');
@@ -55,7 +52,7 @@ const displayModal = async (movieId) => {
     const comme = {
       item_id: movieId,
       username: name.value,
-      comment: comment.value
+      comment: comment.value,
     };
     newComment(comme);
     commentSection.innerHTML = await commentSec(movieId);
@@ -83,7 +80,7 @@ const moviesComponent = async () => {
     item.addEventListener('click', () => {
       const movieId = item.getAttribute('data-id');
       if (item.style.color !== 'red') {
-        item.style.color = "red";
+        item.style.color = 'red';
         item.firstElementChild.innerHTML = Number(item.firstElementChild.innerHTML) + 1;
         newLike(movieId);
       }
