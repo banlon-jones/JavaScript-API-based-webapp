@@ -49,7 +49,17 @@ const displayComments = (comments) => {
 
 export const countComments = (comments) => {
   if (comments.length) {
-    document.getElementById('count').innerHTML = `Comments ( ${comments.length} )`;
+    document.getElementById('count').innerHTML = `Comments ( <span class="fig">${comments.length}</span> )`;
+  }
+};
+
+export const updateCount = () => {
+  if (document.getElementById('count').innerHTML === ' Comments  ') {
+    document.getElementById('count').innerHTML = 'Comments ( <span class="fig">1</span> )';
+  } else {
+    let test = Number(document.querySelector('.fig').innerHTML);
+    test += 1;
+    document.querySelector('.fig').innerHTML = `${test}`;
   }
 };
 

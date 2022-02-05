@@ -1,7 +1,9 @@
 import './style.css';
 import { countMovies, getMovie, getMovies } from './movieAPI';
 import { getLikes, newLike } from './involvementAPI';
-import { getComments, modal, newComment } from './comment';
+import {
+  getComments, modal, newComment, updateCount,
+} from './comment';
 
 const displayMovie = (movie, like = null) => `<div class="card">
                     <div>
@@ -46,6 +48,7 @@ const displayModal = async (movieId) => {
       document.querySelector('.comments').innerHTML = '';
     }
     document.querySelector('.comments').innerHTML += `<li><span>${currentDate()}</span> | <span>${comme.username}:</span> ${comme.comment}</li>`;
+    updateCount();
     commentForm.reset();
   });
 };
